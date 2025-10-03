@@ -1,0 +1,40 @@
+---
+- hosts: all
+  become: true
+  tasks: 
+
+  - name: update repository index
+    ansible.builtin.apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+  - name: install apache2 package
+    ansible.builtin.apt:
+      name: 
+        - apache2
+        - libapache2-mod-php
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Install vim using dnf on Fedora 
+    ansible.builtin.package:
+      name: vim
+      state: present
+      use: dnf
+    when: ansible_distribution == "Fedora"
+
+  - name: update repository index
+    ansible.builtin.package:
+      update_cache: yes
+      use: dnf
+    when: ansible_distribution == "Fedora"
+
+  - name: install httpd package
+    ansible.builtin.package:
+      use:  dnf
+      name: 
+        - httpd
+        - php
+      state: latest
+    when: ansible_distribution == "Fedora"
+

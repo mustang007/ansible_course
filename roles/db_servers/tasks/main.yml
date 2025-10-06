@@ -1,0 +1,7 @@
+- name: install mariadb on db servers
+  tags: db,fedora
+  ansible.builtin.package:
+    name: mariadb
+    state: latest
+    use: "{{ 'dnf' if ansible_distribution == 'Fedora' else omit }}"
+  when: ansible_distribution == "Fedora"

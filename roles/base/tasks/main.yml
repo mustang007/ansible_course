@@ -19,3 +19,12 @@
     user: simone
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAY0t0TGMvHDeWcV8it6rHzD44d0Ks0vGrOuC6bm2Bgd kds@ubuntu-ws2
 
+
+- name: configure openssh based on template
+  ansible.builtin.template:
+    src: "{{ ssh_template_file }}"
+    dest: /etc/ssh/ssd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_sshd
